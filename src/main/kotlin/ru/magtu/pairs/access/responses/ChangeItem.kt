@@ -1,4 +1,4 @@
-package ru.magtu.bot.access.responses
+package ru.magtu.pairs.access.responses
 
 import java.time.LocalDateTime
 

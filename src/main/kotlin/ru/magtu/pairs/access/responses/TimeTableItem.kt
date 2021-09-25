@@ -1,6 +1,6 @@
-package ru.magtu.bot.access.responses
+package ru.magtu.pairs.access.responses
 
-import ru.magtu.bot.access.repositories.Pairs
+import ru.magtu.pairs.access.repositories.Pairs
 import java.time.LocalDateTime
 import java.util.*
 

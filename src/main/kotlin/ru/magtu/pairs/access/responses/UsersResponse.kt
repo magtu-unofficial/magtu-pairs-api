@@ -1,4 +1,4 @@
-package ru.magtu.bot.access.responses
+package ru.magtu.pairs.access.responses
 
 class UsersResponse(
     val items: List<UserItem>

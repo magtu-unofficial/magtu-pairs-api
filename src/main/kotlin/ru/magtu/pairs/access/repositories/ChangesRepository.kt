@@ -1,4 +1,4 @@
-package ru.magtu.bot.access.repositories
+package ru.magtu.pairs.access.repositories
 
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository
 

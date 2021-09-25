@@ -1,4 +1,4 @@
-package ru.magtu.bot.access.responses
+package ru.magtu.pairs.access.responses
 
 data class ChangesResponse(
     val items: List<ChangeItem>

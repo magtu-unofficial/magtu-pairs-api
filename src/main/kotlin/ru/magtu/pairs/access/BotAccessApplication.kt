@@ -1,4 +1,4 @@
-package ru.magtu.bot.access
+package ru.magtu.pairs.access
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

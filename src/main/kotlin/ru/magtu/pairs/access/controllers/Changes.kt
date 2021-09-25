@@ -1,12 +1,12 @@
-package ru.magtu.bot.access.controllers
+package ru.magtu.pairs.access.controllers
 
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import reactor.core.publisher.Flux
-import ru.magtu.bot.access.repositories.ChangesRepository
-import ru.magtu.bot.access.responses.ChangesResponse
-import ru.magtu.bot.access.responses.TimeTablesResponse
+import ru.magtu.pairs.access.repositories.ChangesRepository
+import ru.magtu.pairs.access.responses.ChangesResponse
+import ru.magtu.pairs.access.responses.TimeTablesResponse
 
 @RestController
 @RequestMapping("/changes")

@@ -1,9 +1,9 @@
-package ru.magtu.bot.access.repositories
+package ru.magtu.pairs.access.repositories
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.mongodb.core.mapping.Field
-import ru.magtu.bot.access.responses.UserItem
+import ru.magtu.pairs.access.responses.UserItem
 import java.time.LocalDateTime
 import java.util.*
 

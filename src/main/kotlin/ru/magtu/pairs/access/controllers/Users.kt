@@ -1,11 +1,11 @@
-package ru.magtu.bot.access.controllers
+package ru.magtu.pairs.access.controllers
 
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import reactor.core.publisher.Flux
-import ru.magtu.bot.access.repositories.UsersRepository
-import ru.magtu.bot.access.responses.UsersResponse
+import ru.magtu.pairs.access.repositories.UsersRepository
+import ru.magtu.pairs.access.responses.UsersResponse
 
 @RestController
 @RequestMapping("/users")
