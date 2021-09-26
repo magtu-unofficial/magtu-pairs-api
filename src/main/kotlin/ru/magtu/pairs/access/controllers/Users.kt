@@ -1,10 +1,9 @@
 package ru.magtu.pairs.access.controllers
 
-import org.springframework.web.bind.annotation.CrossOrigin
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Flux
+import reactor.core.publisher.Mono
+import ru.magtu.pairs.access.repositories.TokensRepository
 import ru.magtu.pairs.access.repositories.UsersRepository
 import ru.magtu.pairs.access.responses.UsersResponse
 
@@ -12,14 +11,20 @@ import ru.magtu.pairs.access.responses.UsersResponse
 @RestController
 @RequestMapping("/users")
 class Users(
-    val usersRepository: UsersRepository
+    val usersRepository: UsersRepository,
+    val tokensRepository: TokensRepository
 ) {
-    @GetMapping()
-    fun users() = usersRepository.findAll()
-        .map {
-            it.toUserItem()
-        }.collectList()
-        .map {
-            UsersResponse(it)
-        }
+    @GetMapping
+    fun users(@RequestHeader("token") token: String) =
+        tokensRepository.findByToken(token)
+            .switchIfEmpty(Mono.error(UnknownToken()))
+            .flatMap {
+                usersRepository.findAll()
+                    .map {
+                        it.toUserItem()
+                    }.collectList()
+            }.map {
+                UsersResponse(it)
+            }
+
 }

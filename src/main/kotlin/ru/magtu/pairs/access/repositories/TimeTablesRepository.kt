@@ -7,7 +7,6 @@ import java.time.LocalDateTime
 
 interface TimeTablesRepository : ReactiveMongoRepository<TimeTableDocument, Int> {
 
-
     fun findByGroupIsContaining(
         group: String,
     ): Flux<TimeTableDocument>
@@ -28,4 +27,5 @@ interface TimeTablesRepository : ReactiveMongoRepository<TimeTableDocument, Int>
         oldDate: LocalDateTime? = LocalDateTime.now().minusDays(7),
         currentDate: LocalDateTime? = LocalDateTime.now()
     ): Flux<TimeTableDocument>
+
 }
