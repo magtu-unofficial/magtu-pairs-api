@@ -1,4 +1,4 @@
 FROM openjdk:11-jre
 ARG JAR_FILE=target/*.jar
 COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar", "-Xms32m", "-Xmx32m" ,"/app.jar"]
+ENTRYPOINT ["java","-jar", "-Xms16m", "-Xmx16m" ,"/app.jar"]
