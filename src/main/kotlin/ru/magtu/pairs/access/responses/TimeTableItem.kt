@@ -9,5 +9,7 @@ data class TimeTableItem(
 
     val date: LocalDateTime,
 
-    val pairs: List<Pairs> = Collections.emptyList()
+    val pairs: List<Pairs> = Collections.emptyList(),
+
+    val displayName: String,
 )

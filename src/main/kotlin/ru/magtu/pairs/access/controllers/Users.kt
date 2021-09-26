@@ -13,9 +13,10 @@ class Users(
     val usersRepository: UsersRepository
 ) {
     @GetMapping()
-    fun users() = Flux.merge(usersRepository.findAll().map {
-        it.toUserItem()
-    }).collectList()
+    fun users() = usersRepository.findAll()
+        .map {
+            it.toUserItem()
+        }.collectList()
         .map {
             UsersResponse(it)
         }

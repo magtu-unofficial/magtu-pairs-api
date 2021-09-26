@@ -13,6 +13,9 @@ data class TimeTableDocument(
     val id: String,
 
     @Field
+    val displayName: String,
+
+    @Field
     val group: List<String> = Collections.emptyList(),
 
     @Field
@@ -26,6 +29,7 @@ data class TimeTableDocument(
         group = this.group,
         date = this.date,
         pairs = this.pairs,
+        displayName = this.displayName,
     )
 }
 
