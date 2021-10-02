@@ -6,7 +6,7 @@
 ## How to use?
 ### Do a request.
 ```sh
-GET: https://magtu.bot/tables/latest
+GET: https://ivanik.ru/mpk/api/changes/latest
 ```
 ### Get a response.
 ```js
