@@ -1,28 +1,30 @@
 package ru.magtu.pairs.access.controllers
 
+import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
-import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
+import ru.magtu.pairs.access.UnknownTokenException
 import ru.magtu.pairs.access.repositories.TimeTablesRepository
 import ru.magtu.pairs.access.repositories.TokensRepository
 import ru.magtu.pairs.access.responses.TimeTablesResponse
 
-@CrossOrigin(origins = ["http://localhost:3123"])
 @RestController
 @RequestMapping("/tables")
 class TimeTables(
     val timeTablesRepository: TimeTablesRepository,
     val tokensRepository: TokensRepository
 ) {
-    @GetMapping
+    @GetMapping("/all")
     fun timeTables(@RequestHeader("token") token: String) =
         tokensRepository.findByToken(token)
-            .switchIfEmpty(Mono.error(UnknownToken()))
-            .flatMap { _ ->
-                timeTablesRepository.findAll().map {
-                    it.toTimeTableItem()
-                }.collectList()
-            }.map {
+            .switchIfEmpty(Mono.error(UnknownTokenException()))
+            .flatMap {
+                timeTablesRepository.findAll()
+                    .map {
+                        it.toTimeTableItem()
+                    }.collectList()
+            }
+            .map {
                 TimeTablesResponse(it)
             }
 
@@ -37,13 +39,13 @@ class TimeTables(
                 TimeTablesResponse(it)
             }
 
-    @GetMapping("/{groupName}")
+    @GetMapping("/all/{groupName}")
     fun groupTimeTables(
         @RequestHeader("token") token: String,
         @PathVariable("groupName") name: String
     ): Mono<TimeTablesResponse> =
         tokensRepository.findByToken(token)
-            .switchIfEmpty(Mono.error(UnknownToken()))
+            .switchIfEmpty(Mono.error(UnknownTokenException()))
             .flatMap {
                 timeTablesRepository.findByGroupIsContaining(name).map {
                     it.toTimeTableItem()
@@ -80,5 +82,6 @@ class TimeTables(
             }
 }
 
+
+@ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Group doesn't exists")
 class UnknownGroup : Exception()
-class UnknownToken : Exception()
