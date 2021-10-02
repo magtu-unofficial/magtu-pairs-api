@@ -11,7 +11,7 @@ import ru.magtu.pairs.access.repositories.UsersRepository
 import ru.magtu.pairs.access.responses.UsersResponse
 
 @RestController
-@RequestMapping("/all/users")
+@RequestMapping("/users/all")
 class Users(
     val usersRepository: UsersRepository,
     val tokensRepository: TokensRepository
