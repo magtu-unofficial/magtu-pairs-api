@@ -37,5 +37,6 @@ GET: https://magtu.bot/tables/latest
 # Documentation
 If you want to more know please continue in:
 ```sh
-  http://pairs-access-documntation.ru
+  https://ivanik.ru/mpk/docs/api/
 ```
+You can also reache me on Discord `Elerphore#7557` or on [Telegram](t.me/elerphore)
