@@ -39,4 +39,4 @@ If you want to more know please continue in:
 ```sh
   https://ivanik.ru/mpk/docs/api/
 ```
-You can also reache me on Discord `Elerphore#7557` or on [Telegram](t.me/elerphore)
+You can also reache me on Discord `Elerphore#7557` or on [Telegram](https://t.me/elerphore)
