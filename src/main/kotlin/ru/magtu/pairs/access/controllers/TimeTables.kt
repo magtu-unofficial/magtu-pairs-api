@@ -7,6 +7,8 @@ import ru.magtu.pairs.access.UnknownTokenException
 import ru.magtu.pairs.access.repositories.TimeTablesRepository
 import ru.magtu.pairs.access.repositories.TokensRepository
 import ru.magtu.pairs.access.responses.TimeTablesResponse
+import java.time.LocalDateTime
+import kotlin.math.abs
 
 @RestController
 @RequestMapping("/tables")

@@ -23,9 +23,7 @@ class Changes(
                     it.toChangeItem()
                 }.collectList()
             }
-            .map {
-                ChangesResponse(it)
-            }
+            .map { ChangesResponse(it) }
 
     @GetMapping("/all/{fileName}")
     fun fileChanges(
