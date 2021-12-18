@@ -1,14 +1,15 @@
 package ru.magtu.pairs.access.controllers
 
-import org.springframework.http.HttpStatus
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.RequestHeader
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 import reactor.core.publisher.Mono
 import ru.magtu.pairs.access.UnknownTokenException
 import ru.magtu.pairs.access.repositories.TimeTablesRepository
 import ru.magtu.pairs.access.repositories.TokensRepository
 import ru.magtu.pairs.access.responses.TimeTablesResponse
-import java.time.LocalDateTime
-import kotlin.math.abs
 
 @RestController
 @RequestMapping("/tables")
@@ -26,9 +27,7 @@ class TimeTables(
                         it.toTimeTableItem()
                     }.collectList()
             }
-            .map {
-                TimeTablesResponse(it)
-            }
+            .map { TimeTablesResponse(it) }
 
 
     @GetMapping("/latest")
@@ -42,10 +41,7 @@ class TimeTables(
             }
 
     @GetMapping("/all/{groupName}")
-    fun groupTimeTables(
-        @RequestHeader("token") token: String,
-        @PathVariable("groupName") name: String
-    ): Mono<TimeTablesResponse> =
+    fun groupTimeTables(@RequestHeader("token") token: String, @PathVariable("groupName") name: String): Mono<TimeTablesResponse> =
         tokensRepository.findByToken(token)
             .switchIfEmpty(Mono.error(UnknownTokenException()))
             .flatMap {
@@ -53,37 +49,13 @@ class TimeTables(
                     it.toTimeTableItem()
                 }.collectList()
             }
-            .filter { it.isNotEmpty() }
-            .switchIfEmpty(Mono.defer {
-                timeTablesRepository.findByGroupIsContaining(name).map {
-                    it.toTimeTableItem()
-                }.collectList()
-                    .filter { it.isNotEmpty() }
-                    .switchIfEmpty(Mono.error(UnknownGroup()))
-            })
-            .map {
-                TimeTablesResponse(it)
-            }
+            .map { TimeTablesResponse(it) }
 
     @GetMapping("/latest/{groupName}")
     fun groupLatestTimeTables(@PathVariable("groupName") name: String): Mono<TimeTablesResponse> =
-        timeTablesRepository.findByGroupIsContainingAndDateBetween(name)
+        timeTablesRepository.findByDisplayNameAndDateBetween(name)
             .map {
                 it.toTimeTableItem()
             }.collectList()
-            .filter { it.isNotEmpty() }
-            .switchIfEmpty(Mono.defer {
-                timeTablesRepository.findByDisplayNameAndDateBetween(name).map {
-                    it.toTimeTableItem()
-                }.collectList()
-                    .filter { it.isNotEmpty() }
-                    .switchIfEmpty(Mono.error(UnknownGroup()))
-            })
-            .map {
-                TimeTablesResponse(it)
-            }
+            .map { TimeTablesResponse(it) }
 }
-
-
-@ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Group doesn't exists")
-class UnknownGroup : Exception()

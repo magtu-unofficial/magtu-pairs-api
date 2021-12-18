@@ -12,16 +12,10 @@ interface TimeTablesRepository : ReactiveMongoRepository<TimeTableDocument, Int>
         group: String,
     ): Flux<TimeTableDocument>
 
-    fun findByGroupIsContainingAndDateBetween(
-        group: String,
-        oldDate: LocalDateTime? = LocalDateTime.now().minusDays((LocalDateTime.now().dayOfWeek.value).toLong()),
-        currentDate: LocalDateTime? = LocalDateTime.now().plusDays((abs(LocalDateTime.now().dayOfWeek.value - 7)).toLong()),
-    ): Flux<TimeTableDocument>
-
     fun findByDisplayNameAndDateBetween(
         displayName: String,
-        oldDate: LocalDateTime? = LocalDateTime.now().minusDays(3),
-        currentDate: LocalDateTime? = LocalDateTime.now().plusDays(3),
+        oldDate: LocalDateTime? = LocalDateTime.now(),
+        currentDate: LocalDateTime? = LocalDateTime.now().plusDays(7),
     ): Flux<TimeTableDocument>
 
     fun findAllByDateBetween(
