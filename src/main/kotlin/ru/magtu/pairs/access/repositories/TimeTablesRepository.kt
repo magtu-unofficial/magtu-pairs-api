@@ -4,7 +4,6 @@ package ru.magtu.pairs.access.repositories
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository
 import reactor.core.publisher.Flux
 import java.time.LocalDateTime
-import kotlin.math.abs
 
 interface TimeTablesRepository : ReactiveMongoRepository<TimeTableDocument, Int> {
 
