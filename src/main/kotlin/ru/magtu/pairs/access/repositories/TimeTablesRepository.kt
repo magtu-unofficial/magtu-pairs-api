@@ -2,9 +2,11 @@ package ru.magtu.pairs.access.repositories
 
 
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository
+import org.springframework.stereotype.Repository
 import reactor.core.publisher.Flux
 import java.time.LocalDateTime
 
+@Repository
 interface TimeTablesRepository : ReactiveMongoRepository<TimeTableDocument, Int> {
 
     fun findByGroupIsContaining(
@@ -13,8 +15,8 @@ interface TimeTablesRepository : ReactiveMongoRepository<TimeTableDocument, Int>
 
     fun findByDisplayNameAndDateBetween(
         displayName: String,
-        oldDate: LocalDateTime? = LocalDateTime.now(),
-        currentDate: LocalDateTime? = LocalDateTime.now().plusDays(7),
+        oldDate: LocalDateTime? = LocalDateTime.now().minusDays(1),
+        currentDate: LocalDateTime? = LocalDateTime.now().plusDays(3),
     ): Flux<TimeTableDocument>
 
     fun findAllByDateBetween(

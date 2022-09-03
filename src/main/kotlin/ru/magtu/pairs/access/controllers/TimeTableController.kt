@@ -1,10 +1,6 @@
 package ru.magtu.pairs.access.controllers
 
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestHeader
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Mono
 import ru.magtu.pairs.access.UnknownTokenException
 import ru.magtu.pairs.access.repositories.TimeTablesRepository
@@ -22,6 +18,7 @@ class TimeTableController(
         tokensRepository.findByToken(token)
             .switchIfEmpty(Mono.error(UnknownTokenException()))
             .flatMapMany { timeTablesRepository.findAll() }
+            .filter { it.pairs.isNotEmpty() }
             .map { it.toTimeTableItem() }
             .collectList()
             .map { TimeTablesResponse(it) }
@@ -30,6 +27,7 @@ class TimeTableController(
     @GetMapping("/latest")
     fun latestTimeTables() =
         timeTablesRepository.findAllByDateBetween()
+            .filter { it.pairs.isNotEmpty() }
             .map { it.toTimeTableItem() }
             .collectList()
             .map { TimeTablesResponse(it) }
@@ -39,6 +37,7 @@ class TimeTableController(
         tokensRepository.findByToken(token)
             .switchIfEmpty(Mono.error(UnknownTokenException()))
             .flatMapMany { timeTablesRepository.findByGroupIsContaining(name) }
+            .filter { it.pairs.isNotEmpty() }
             .map { it.toTimeTableItem() }
             .collectList()
             .map { TimeTablesResponse(it) }
@@ -46,6 +45,7 @@ class TimeTableController(
     @GetMapping("/latest/{groupName}")
     fun groupLatestTimeTables(@PathVariable("groupName") name: String): Mono<TimeTablesResponse> =
         timeTablesRepository.findByDisplayNameAndDateBetween(name)
+            .filter { it.pairs.isNotEmpty() }
             .map { it.toTimeTableItem() }
             .collectList()
             .map { TimeTablesResponse(it) }
