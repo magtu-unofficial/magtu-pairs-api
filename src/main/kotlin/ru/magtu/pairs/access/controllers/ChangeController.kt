@@ -2,7 +2,6 @@ package ru.magtu.pairs.access.controllers
 
 import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Mono
-import ru.magtu.pairs.access.UnknownTokenException
 import ru.magtu.pairs.access.repositories.ChangesRepository
 import ru.magtu.pairs.access.repositories.TokensRepository
 import ru.magtu.pairs.access.responses.ChangesResponse

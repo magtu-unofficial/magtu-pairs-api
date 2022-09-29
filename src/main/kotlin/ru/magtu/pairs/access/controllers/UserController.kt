@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import reactor.core.publisher.Mono
-import ru.magtu.pairs.access.UnknownTokenException
 import ru.magtu.pairs.access.repositories.TokensRepository
 import ru.magtu.pairs.access.repositories.UsersRepository
 import ru.magtu.pairs.access.responses.UsersResponse
