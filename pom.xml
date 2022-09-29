@@ -16,6 +16,7 @@
 	<properties>
 		<java.version>11</java.version>
 		<kotlin.version>1.7.10</kotlin.version>
+		<mainClass>ru.magtu.pairs.access.BotAccessApplication</mainClass>
 	</properties>
 	<dependencies>
 		<dependency>
