@@ -54,6 +54,6 @@ class TimeTableController(
     fun getByTeacher(@PathVariable("teacher") teacher: String) =
         timeTablesRepository.findAllByDateBetween()
             .filter { it.pairs.isNotEmpty() }
-            .map { hashMapOf(it.date to it.pairs.filter { it.teacher == teacher }) }
-            .filter { it.values.any { it.isNotEmpty() } }
+            .map { Pair(it.displayName, hashMapOf(it.date to it.pairs.filter { it.teacher == teacher })) }
+            .filter { it.second.values.any { it.isNotEmpty() } }
 }
