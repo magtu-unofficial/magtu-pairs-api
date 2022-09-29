@@ -1,4 +1,5 @@
-FROM openjdk:11-jre
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar", "-Xms16m", "-Xmx16m" ,"/app.jar"]
+FROM maven:3.6-jdk-11 as BUILD
+ENV APP_HOME=/usr/app/
+WORKDIR $APP_HOME
+COPY . .
+RUN mvn clean package -DskipTests=true
